@@ -26,18 +26,18 @@ The goals / steps of this project are the following:
 [video1]: ./project_video_out.mp4
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
-###Writeup / README
+### Writeup / README
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.
+#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.
 
 You're reading it!
 
-###Histogram of Oriented Gradients (HOG)
+### Histogram of Oriented Gradients (HOG)
 
-####1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+#### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
 The p5_pipeline.py file is where images are worked upon to create the concept for the final video.
 
@@ -57,7 +57,7 @@ The figure below shows the Histogram of Oriented Gradients (HOG) of an example C
 
 The extract_features function (also under utils.py), accepts a list of image paths, HOG parameters and one of a number of color spaces to which the image input is converted. It returns a flattened array of HOG features for each of the images.
 
-####2. Explain how you settled on your final choice of HOG parameters.
+#### 2. Explain how you settled on your final choice of HOG parameters.
 
 Various combinations of parameters were tried. The accuracy of the of the classifier making the predictions along with the speed at which it makes the predictions were analyzed to decide upon the best combination.
 
@@ -65,22 +65,22 @@ The best configuration used was: YUV color space, 11 orientations, 16 'pixels pe
 
 Using all channels of the 'color space' increases the execution time but also brings an increase in the accuracy. The lost execution time was partly gained by increasing the 'pixels per cell' parameter from 8 to 16.
 
-####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
+#### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
 The training data was split into to train the Classifier (80%) and the rest to test the classifier.
 
 I trained a linear SVM using the default attributes using only the HOG features (without using color histogram and spatial binning) with an accuracy of 98.2%.
 
-###Sliding Window Search
+### Sliding Window Search
 
-####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+#### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
 The 'find_cars' function (in utils.py) combines HOG feature extraction along with a sliding window search algorithm. The HOG features are extracted for the entire image (or a selected part) and then these features are sub-sampled according to the size of the window and then fed to the classifier. 
 The classifier then makes a prediction and a list of rectangles corresponding to a 'car' prediction is returned in the function.
 
 The image below shows the results using a single scale of window size on an example image:
 
-![alt text][image3]
+![][image3]
 
 In the function 'find_cars_multiple_sized_windows', several scales for the window sizes were explored. A final configuration of small(1x), medium (1.5x, 2x) and large(3x) windows were seen to best fit the needs.
 
@@ -117,7 +117,7 @@ The final detection area is the maximum of the labelled boxes.
 
 ![][image12]
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
+#### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
 The test images give the following results:
 
@@ -128,11 +128,11 @@ Optimization techniques included changes to window sizing and overlap as already
 
 ### Video Implementation
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
+#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 Here's a [link to my video result](./project_video.mp4)
 
 
-####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
+#### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
 The video was processed in the 'p5_video_advanced.py' file. A '_process_frame_for_video' function was used to combine all the steps defined above. 
 
@@ -144,9 +144,9 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 1. Calculating hog features is an expensive operation as the gradients of every pixel must be calculated. However, by calculating hog features once for the entire image and then subsampling that with our sliding windows, we prevent any duplicated work.
 
@@ -172,4 +172,3 @@ Here's an example result showing the heatmap from a series of frames of video, t
 2. https://github.com/sumitbinnani/CarND-Vehicle-Detection
 3. https://github.com/BillZito/vehicle-detection
 4. https://github.com/xmprise/Vehicle_Detection_and_Tracking
-
