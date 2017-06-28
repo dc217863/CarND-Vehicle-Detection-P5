@@ -150,7 +150,7 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 1. Calculating hog features is an expensive operation as the gradients of every pixel must be calculated. However, by calculating hog features once for the entire image and then subsampling that with our sliding windows, we prevent any duplicated work.
 
-2. cv2 reads in images with pixel values 0 < val < 255, whereas mpimg reads in png at 0 < val < 1 and jpg at 0 < val < 255. Furthermore, cv2 reads in colors as BGR, whereas mpimg reads them in as RGB. I used mpimg for png and normalized with 255 when using cv2.
+2. cv2 reads in images with pixel values 0 < val < 255, whereas mpimg reads in png at 0 < val < 1 and jpg at 0 < val < 255. Furthermore, cv2 reads in colors as BGR, whereas mpimg reads them in as RGB. I used mpimg for png and scale when using cv2.
 
 3. Further reading needs to be done to get a better intuition of the different color spaces that can be used.
 
